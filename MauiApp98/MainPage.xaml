@@ -5,13 +5,15 @@
 
     <ScrollView>
         <StackLayout Orientation="Vertical">
-        <Button Clicked="Login" Text="go to login">
-            
-        </Button>
 
-        <Button Clicked="Registration" Text="go to reg">
             
-        </Button>
+            
+            <Button Clicked="Login" Text="go to login"/>
+
+
+            <Button Clicked="Registration" Text="go to reg"/>
+
+
         </StackLayout>
     </ScrollView>
 
