@@ -1,4 +1,5 @@
 ﻿using MauiApp98.Data;
+using MauiApp98.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace MauiApp98.Repositories
         {
             this.database = database;
         }
+
 
     }
 }
