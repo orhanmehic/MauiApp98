@@ -11,7 +11,7 @@ namespace MauiApp98.Services
     internal class GameService
     {
         private readonly SqliteData database;
-        private readonly UserRepository gamerepository;
+        private readonly GameRepository gamerepository;
         public GameService(SqliteData database)
         {
             this.database = database;
