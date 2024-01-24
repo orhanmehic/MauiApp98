@@ -4,17 +4,31 @@
              x:Class="MauiApp98.MainPage">
 
     <ScrollView>
-        <StackLayout Orientation="Vertical">
 
-            
-            
-            <Button Clicked="Login" Text="go to login"/>
+      
+            <StackLayout x:Name="GamesStackLayout" Orientation="Vertical" Spacing="10" Padding="10">
+
+             
+                <Frame CornerRadius="10" BackgroundColor="LightGray">
+              
+                    <Label Text="Naziv igre 1" FontSize="20" FontAttributes="Bold" />
+   
+                </Frame>
+
+                <Frame CornerRadius="10" BackgroundColor="LightGray">
+                    <Label Text="Naziv igre 2" FontSize="20" FontAttributes="Bold" />
+
+                </Frame>
+
+                <Button Clicked="Login" Text="go to login"/>
 
 
-            <Button Clicked="Registration" Text="go to reg"/>
+                <Button Clicked="Registration" Text="go to reg"/>
 
+            </StackLayout>
+     
 
-        </StackLayout>
+ 
     </ScrollView>
 
 </ContentPage>

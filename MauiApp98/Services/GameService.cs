@@ -1,4 +1,5 @@
 ﻿using MauiApp98.Data;
+using MauiApp98.Models;
 using MauiApp98.Repositories;
 using System;
 using System.Collections.Generic;
@@ -18,5 +19,15 @@ namespace MauiApp98.Services
             gamerepository = new GameRepository(database);
         }
 
+        public List<Games> getAllGames()
+        {
+            return database.GetAll<Games>();
+
+        }
+
     }
+
+
+
+
 }
