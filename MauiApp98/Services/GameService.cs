@@ -17,5 +17,6 @@ namespace MauiApp98.Services
             this.database = database;
             gamerepository = new GameRepository(database);
         }
+
     }
 }
