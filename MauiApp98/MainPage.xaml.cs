@@ -23,8 +23,8 @@ public partial class MainPage : ContentPage
         var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "test.db");
         SqliteData database = new SqliteData(dbPath);
         userService = new UserService(database);
-
         gameService = new GameService(database);
+        loadGames();
 
 
     }
