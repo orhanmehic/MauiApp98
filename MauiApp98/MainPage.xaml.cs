@@ -58,6 +58,37 @@ public partial class MainPage : ContentPage
 
     private void Logout(object sender, EventArgs e)
     {
+        List<Games> games = gameService.getAllGames();
+
+      
+        foreach (var game in games)
+        {
+            StackLayout stackLayout = new StackLayout
+            {
+                Orientation = StackOrientation.Vertical,
+                Spacing = 10,
+                Padding = 10
+            };
+
+            Frame frame = new Frame
+            {
+                CornerRadius = 10,
+            };
+
+            Label titleLabel = new Label
+            {
+                Text = game.Name,
+                FontSize = 20,
+                FontAttributes = FontAttributes.Bold
+            };
+
+            
+
+            frame.Content = titleLabel;
+            stackLayout.Children.Add(titleLabel);
+     
+            GamesStackLayout.Children.Add(frame);
+        }
         SecureStorage.Remove("username");
         Navigation.PopToRootAsync();
     }

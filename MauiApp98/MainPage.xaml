@@ -18,9 +18,5 @@
                 </BindableLayout.ItemTemplate>
             </StackLayout>
         </ScrollView>
-        <StackLayout Orientation="Horizontal">
-            <Button x:Name="LoginButton"  Clicked="Login" Text="Login"/>
-            <Button x:Name="LogoutButton" Clicked="Logout" Text="Logout"/>
-        </StackLayout>
-    </StackLayout>
+
 </ContentPage>
