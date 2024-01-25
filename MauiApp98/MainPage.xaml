@@ -2,24 +2,25 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp98.MainPage">
+    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
+        <ScrollView VerticalOptions="FillAndExpand">
+            <StackLayout Orientation="Vertical" Spacing="10" Padding="10" BindableLayout.ItemsSource="{Binding Games}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Frame CornerRadius="1">
+                            <StackLayout Orientation="Vertical" Spacing="10" Padding="10">
+                                <Label Text="{Binding Price}" FontSize="20" FontAttributes="Bold"/>
+                                <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
 
-    <ScrollView>
-
-      
-            <StackLayout x:Name="GamesStackLayout" Orientation="Vertical" Spacing="10" Padding="10">
-
-             
-              
-
-                <Button Clicked="Login" Text="go to login"/>
-
-
-                <Button Clicked="Registration" Text="go to reg"/>
-
+                </BindableLayout.ItemTemplate>
             </StackLayout>
-     
-
- 
-    </ScrollView>
-
+        </ScrollView>
+        <StackLayout Orientation="Horizontal">
+            <Button x:Name="LoginButton"  Clicked="Login" Text="Login"/>
+            <Button x:Name="LogoutButton" Clicked="Logout" Text="Logout"/>
+        </StackLayout>
+    </StackLayout>
 </ContentPage>

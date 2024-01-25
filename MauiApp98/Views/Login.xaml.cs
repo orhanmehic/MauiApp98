@@ -28,8 +28,9 @@ public partial class Login : ContentPage
 
         if (user!=null)
 		{
-			//prompt for succesfull login and session details
-			Navigation.PopToRootAsync();
+            SecureStorage.SetAsync("username", user.Username);
+            //prompt for succesfull login and session details
+            Navigation.PopToRootAsync();
 		}
 		else
 		{
