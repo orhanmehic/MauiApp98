@@ -18,7 +18,7 @@ public partial class MainPage : ContentPage
     private GameService gameService;
 
     public ObservableCollection<Games> Games { get; set; }
-
+   
     public MainPage()
     {
         InitializeComponent();
@@ -29,10 +29,12 @@ public partial class MainPage : ContentPage
         Games = new ObservableCollection<Games>(gameService.getAllGames());
         BindingContext = this;
         isLoggedIn();
+        
     }
 
     public async void isLoggedIn()
-    {
+    { 
+        var pushbezveze = 2;
 
         if (!String.IsNullOrEmpty(await SecureStorage.GetAsync("username")))
         {
