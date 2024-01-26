@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.System;
+
 
 namespace MauiApp98.Services
 {
@@ -47,11 +47,30 @@ namespace MauiApp98.Services
 
         }
 
-        public void RemoveGameFromCart(Cart cart, Games game)
+        public void RemoveGameFromCart(int UserId, Games game)
         {
+            var cartRecordToRemove = database.GetAll<Cart>()
+                                     .FirstOrDefault(cart => cart.UserId == UserId && cart.GameId == game.Id);
 
+            if (cartRecordToRemove != null)
+            {
+                database.Delete(cartRecordToRemove);
+            }
 
         }
+
+        public void EmptyCart(int UserId)
+        {
+            var cartRecordsToRemove = database.GetAll<Cart>()
+                                              .Where(cart => cart.UserId == UserId)
+                                              .ToList();
+
+            foreach (var cartRecord in cartRecordsToRemove)
+            {
+                database.Delete(cartRecord);
+            }
+        }
+
 
     }
 

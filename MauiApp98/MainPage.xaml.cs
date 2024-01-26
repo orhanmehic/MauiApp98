@@ -68,6 +68,8 @@ public partial class MainPage : ContentPage
         Navigation.PopToRootAsync();
     }
 
+
+
     private void AddToCartButton_Clicked(object sender, EventArgs e)
     {
         if (sender is Button addToCartButton && addToCartButton.CommandParameter is Games selectedGame)
@@ -96,5 +98,10 @@ public partial class MainPage : ContentPage
                 // Handle the case where the user is not logged in
             }
         }
+
+
     }
+
+  
+
 }
