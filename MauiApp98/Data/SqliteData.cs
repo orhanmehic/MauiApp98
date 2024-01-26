@@ -33,6 +33,7 @@ public class SqliteData
     {
         database.CreateTable<Users>();
         database.CreateTable<Games>();
+        database.CreateTable<Cart>();
     }
 
 }
