@@ -22,7 +22,7 @@ public partial class Library : ContentPage
         SqliteData database = new SqliteData(dbPath);
         userService = new UserService(database);
         gameService = new GameService(database);
-
+        cartService = new CartService(database);
     
 
         GamesInCart = new ObservableCollection<Games>();
@@ -36,8 +36,9 @@ public partial class Library : ContentPage
         // Get the username of the logged-in user
         var username = SecureStorage.GetAsync("username").Result;
 
-        // Get the userId associated with the logged-in username
-        var userId = userService.GetUserbyUsername(username).Id;
+        // Get the userId associated with the logged-in usernam
+   
+       int userId = userService.GetUserbyUsername(username).Id;
 
         // Check if the userId is valid
         if (userId > 0)
