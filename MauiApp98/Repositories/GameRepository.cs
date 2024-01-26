@@ -18,6 +18,10 @@ namespace MauiApp98.Repositories
             this.database = database;
         }
 
+        public Games? getGameById(int id)
+        {
+            return database.GetAll<Games>().FirstOrDefault(game => game.Id == id);
+        }
 
  
 

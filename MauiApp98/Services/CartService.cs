@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.System;
 
 namespace MauiApp98.Services
 {
@@ -18,41 +19,38 @@ namespace MauiApp98.Services
             this.database = database;
         }
 
-        public void AddGameToCart(Cart cart, Games game)
+        public void AddGameToCart(int UserId, Games game)
         {
-      
-            database.Insert(cart.User);
 
-   
-            var cartGame = new CartGames { CartId = cart.Id, GameId = game.Id };
-            database.Insert(cartGame);
+            Cart cart = new Cart();
+            cart.UserId = UserId;
+            cart.GameId = game.Id;
+
+            database.Insert<Cart>(cart);
+
+            
         }
 
-        public List<Games> GetGamesInCart(Cart cart)
+        public List<Games> GetGamesInCart(int UserId)
         {
-            var cartGameIds = database.GetAll<CartGames>()
-                                      .Where(cg => cg.CartId == cart.Id)
-                                      .Select(cg => cg.GameId)
-                                      .ToList();
+            var gameIdsInCart = database.GetAll<Cart>()
+                                .Where(cart => cart.UserId == UserId)
+                                .Select(cart => cart.GameId)
+                                .ToList();
 
             var gamesInCart = database.GetAll<Games>()
-                                      .Where(game => cartGameIds.Contains(game.Id))
+                                      .Where(game => gameIdsInCart.Contains(game.Id))
                                       .ToList();
 
             return gamesInCart;
+
+
         }
 
         public void RemoveGameFromCart(Cart cart, Games game)
         {
 
 
-            var cartGame = database.GetAll<CartGames>()
-                           .FirstOrDefault(cg => cg.CartId == cart.Id && cg.GameId == game.Id);
-
-            if (cartGame != null)
-            {
-                database.Delete(cartGame);
-            }
         }
 
     }

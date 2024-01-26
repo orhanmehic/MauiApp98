@@ -11,6 +11,7 @@
                             <StackLayout Orientation="Vertical" Spacing="10" Padding="10">
                                 <Label Text="{Binding Price}" FontSize="20" FontAttributes="Bold"/>
                                 <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold"/>
+                                <Button Text="Add to Cart" Clicked="AddToCartButton_Clicked" CommandParameter="{Binding .}"/>
                             </StackLayout>
                         </Frame>
                     </DataTemplate>
