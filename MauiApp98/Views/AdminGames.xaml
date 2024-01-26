@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="MauiApp98.Views.AdminGames"
+            Title="Games Management">
+
+    <!-- First Tab: Add Games -->
+    <ContentPage Title="Add Games">
+        <StackLayout>
+            <Label Text="Content for Add Games Tab" />
+            <!-- Add your content for Add Games tab here -->
+            
+            <Button Text="Back" Clicked="BackButton_Clicked" />
+
+        </StackLayout>
+    </ContentPage>
+
+    <!-- Second Tab: Manage Games -->
+    <ContentPage Title="Manage Games">
+        <StackLayout>
+            <Label Text="Content for Manage Games Tab" />
+            <StackLayout>
+                <Label Text="edit delete games"></Label>
+        
+                <ScrollView VerticalOptions="FillAndExpand">
+                    <StackLayout Orientation="Vertical" Spacing="10" Padding="10" BindableLayout.ItemsSource="{Binding Games}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Frame CornerRadius="1">
+                                    <StackLayout Orientation="Vertical" Spacing="10" Padding="10">
+                                        <Label TextColor="Black" Text="{Binding Price}" FontSize="20" FontAttributes="Bold"/>
+                                        <Label TextColor="Black" Text="{Binding Name}" FontSize="20" FontAttributes="Bold"/>
+                                        <Button Text="Update"  CommandParameter="{Binding .}"/>
+                                        <Button Text="Delete"  CommandParameter="{Binding .}"/>
+
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+            
+            <Button Text="Back" Clicked="BackButton_Clicked" />
+
+        </StackLayout>
+        
+    </ContentPage>
+    
+
+</TabbedPage>
