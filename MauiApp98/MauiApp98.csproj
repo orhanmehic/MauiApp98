@@ -70,7 +70,7 @@
       <MauiXaml Update="Views\AdminPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
-      <MauiXaml Update="Views\Cart.xaml">
+      <MauiXaml Update="Views\Library.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
       <MauiXaml Update="Views\Login.xaml">
