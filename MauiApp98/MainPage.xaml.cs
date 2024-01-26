@@ -16,6 +16,7 @@ public partial class MainPage : ContentPage
 
     private UserService userService;
     private GameService gameService;
+    private CartService cartService;
 
     public ObservableCollection<Games> Games { get; set; }
 
@@ -66,5 +67,41 @@ public partial class MainPage : ContentPage
         SecureStorage.Remove("username");
         Navigation.PopToRootAsync();
     }
+
+
+
+    private void AddToCartButton_Clicked(object sender, EventArgs e)
+    {
+        if (sender is Button addToCartButton && addToCartButton.CommandParameter is Games selectedGame)
+        {
+            if (!String.IsNullOrEmpty(SecureStorage.GetAsync("username").Result))
+            {
+                // Get the username of the logged-in user
+                var username = SecureStorage.GetAsync("username").Result;
+
+                // Get the userId associated with the logged-in username
+                var userId = userService.GetUserbyUsername(username).Id;
+
+                // Check if the userId is valid
+                if (userId > 0)
+                {
+                    // Add the selected game to the user's cart
+                    cartService.AddGameToCart(userId, selectedGame);
+                }
+                else
+                {
+                    // Handle the case where the userId is not valid
+                }
+            }
+            else
+            {
+                // Handle the case where the user is not logged in
+            }
+        }
+
+
+    }
+
+  
 
 }

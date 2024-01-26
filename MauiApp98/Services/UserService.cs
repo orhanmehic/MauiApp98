@@ -49,5 +49,10 @@ namespace MauiApp98.Services
             }
             return false;
         }
+
+        public Users? GetUserbyUsername(string username)
+        {
+            return database.GetAll<Users>().FirstOrDefault(user => user.Username == username);
+        }
     }
 }

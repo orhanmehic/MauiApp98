@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace MauiApp98.Models
 {
     public class Cart
@@ -14,8 +15,10 @@ namespace MauiApp98.Models
         public int Id { get; set; }
         [NotNull, Unique]
 
-        public Users User { get; set; }
+        public int UserId { get; set; }
+
+        public int GameId {  get; set; }
+   
        
-        public List<Games> Games { get; set; }
     }
 }
