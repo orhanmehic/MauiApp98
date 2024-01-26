@@ -102,6 +102,12 @@ public partial class MainPage : ContentPage
 
     }
 
+    public void ClickedLibrary(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new Library());
+
+    }
+
   
 
 }

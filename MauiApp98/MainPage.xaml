@@ -22,6 +22,7 @@
         <StackLayout Orientation="Horizontal">
             <Button x:Name="LoginButton"  Clicked="Login" Text="Login"/>
             <Button x:Name="LogoutButton" Clicked="Logout" Text="Logout"/>
+            <Button x:Name="IdiLibrary" Clicked="ClickedLibrary" Text="Library"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>
