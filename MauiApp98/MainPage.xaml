@@ -9,8 +9,8 @@
                     <DataTemplate>
                         <Frame CornerRadius="1">
                             <StackLayout Orientation="Vertical" Spacing="10" Padding="10">
-                                <Label Text="{Binding Price}" FontSize="20" FontAttributes="Bold"/>
-                                <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold"/>
+                                <Label TextColor="Black" Text="{Binding Price}" FontSize="20" FontAttributes="Bold"/>
+                                <Label TextColor="Black" Text="{Binding Name}" FontSize="20" FontAttributes="Bold"/>
                                 <Button Text="Add to Cart" Clicked="AddToCartButton_Clicked" CommandParameter="{Binding .}"/>
                             </StackLayout>
                         </Frame>
@@ -22,6 +22,7 @@
         <StackLayout Orientation="Horizontal">
             <Button x:Name="LoginButton"  Clicked="Login" Text="Login"/>
             <Button x:Name="LogoutButton" Clicked="Logout" Text="Logout"/>
+            <Button Clicked="adminPage" Text="admin"></Button>
         </StackLayout>
     </StackLayout>
 </ContentPage>

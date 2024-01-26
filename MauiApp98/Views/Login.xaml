@@ -8,7 +8,8 @@
         <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="true" />
 
         <Button Text="Login" Clicked="LoginUser" />
-        <Button Clicked="mainpage" Text="back to main"></Button>
+        <Button Clicked="mainpage" Text="back to maina"></Button>
+        
         
         
     </StackLayout>

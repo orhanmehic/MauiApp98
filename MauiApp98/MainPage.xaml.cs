@@ -34,7 +34,11 @@ public partial class MainPage : ContentPage
 
     }
 
-  
+    public void adminPage(Object sender, EventArgs e)
+    {
+        AdminPage adminPage = new AdminPage();
+        Navigation.PushAsync(adminPage);
+    }
 
     public async void isLoggedIn()
     {
