@@ -27,6 +27,7 @@ public partial class MainPage : ContentPage
         SqliteData database = new SqliteData(dbPath);
         userService = new UserService(database);
         gameService = new GameService(database);
+        cartService = new CartService(database);
         Games = new ObservableCollection<Games>(gameService.getAllGames());
         BindingContext = this;
         isLoggedIn();
@@ -74,23 +75,38 @@ public partial class MainPage : ContentPage
     {
         if (sender is Button addToCartButton && addToCartButton.CommandParameter is Games selectedGame)
         {
+            Debug.WriteLine($"Selected Game: {selectedGame.Name}");
+
             if (!String.IsNullOrEmpty(SecureStorage.GetAsync("username").Result))
             {
                 // Get the username of the logged-in user
                 var username = SecureStorage.GetAsync("username").Result;
 
-                // Get the userId associated with the logged-in username
-                var userId = userService.GetUserbyUsername(username).Id;
+                // Get the user associated with the logged-in username
+                var user = userService.GetUserbyUsername(username);
 
-                // Check if the userId is valid
-                if (userId > 0)
+                Debug.WriteLine(username);
+
+                // Check if the user object is not null
+                if (user != null)
                 {
-                    // Add the selected game to the user's cart
-                    cartService.AddGameToCart(userId, selectedGame);
+                    // Get the userId from the user object
+                    var userId = user.Id;
+
+                    // Check if the userId is valid
+                    if (userId > 0)
+                    {
+                        // Add the selected game to the user's cart
+                        cartService.AddGameToCart(userId, selectedGame);
+                    }
+                    else
+                    {
+                        // Handle the case where the userId is not valid
+                    }
                 }
                 else
                 {
-                    // Handle the case where the userId is not valid
+                    // Handle the case where the user object is null
                 }
             }
             else
@@ -99,6 +115,11 @@ public partial class MainPage : ContentPage
             }
         }
 
+    }
+
+    public void ClickedLibrary(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new Library());
 
     }
 
