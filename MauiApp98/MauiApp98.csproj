@@ -70,6 +70,9 @@
       <MauiXaml Update="Views\AdminPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
+      <MauiXaml Update="Views\Cart.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
       <MauiXaml Update="Views\Login.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
