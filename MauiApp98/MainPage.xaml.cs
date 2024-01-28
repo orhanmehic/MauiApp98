@@ -51,6 +51,9 @@ namespace MauiApp98
         private void Login(object sender, EventArgs e)
         {
             Navigation.PushAsync(new Login(userService));
+
+            isLoggedIn();
+
         }
 
         private void Registration(object sender, EventArgs e)
@@ -61,18 +64,16 @@ namespace MauiApp98
         private void Logout(object sender, EventArgs e)
         {
             SecureStorage.Remove("username");
-            Navigation.PopToRootAsync();
+            isLoggedIn();
+
+
         }
-    private void Logout(object sender, EventArgs e)
-    {
-        SecureStorage.Remove("username");
-        Navigation.PopToRootAsync();
-    }
+    
     private async void GameTapped(object sender, EventArgs e)
     {
         if (sender is StackLayout stackLayout && stackLayout.BindingContext is Games game)
         {
-            // Navigate to the GameAboutPage and pass the selected game as a parameter
+
             await Navigation.PushAsync(new aboutGame(game, this));
         }
     }
@@ -93,35 +94,41 @@ namespace MauiApp98
 
         public void AddToCart(Games game)
         {
-            if (!String.IsNullOrEmpty(SecureStorage.GetAsync("username").Result))
+            try
             {
                 var username = SecureStorage.GetAsync("username").Result;
+
+                if (string.IsNullOrEmpty(username))
+                {
+                    // Handle the case where the username is null or empty
+                    Debug.WriteLine("Username is null or empty.");
+                    return;
+                }
+
                 var user = userService.GetUserbyUsername(username);
 
-                    Debug.WriteLine(username);
-
-                    if (user != null)
-                    {
-                        var userId = user.Id;
-
-                        if (userId > 0)
-                        {
-                            cartService.AddGameToCart(userId, selectedGame);
-                        }
-                        else
-                        {
-                            // Handle the case where the userId is not valid
-                        }
-                    }
-                    else
-                    {
-                        // Handle the case where the user object is null
-                    }
-                }
-                else
+                if (user == null)
                 {
-                    // Handle the case where the user is not logged in
+                    // Handle the case where the user object is null
+                    Debug.WriteLine("User object is null.");
+                    return;
                 }
+
+                var userId = user.Id;
+
+                if (userId <= 0)
+                {
+                    // Handle the case where the userId is not valid
+                    Debug.WriteLine("Invalid userId.");
+                    return;
+                }
+
+                cartService.AddGameToCart(userId, game);
+            }
+            catch (Exception ex)
+            {
+                // Handle any unexpected exceptions
+                Debug.WriteLine($"An error occurred: {ex.Message}");
             }
         }
 
@@ -156,10 +163,10 @@ namespace MauiApp98
 
         private void FilterGames()
         {
-            // Update the list of games based on the searchText
+            
             if (string.IsNullOrEmpty(searchText))
             {
-                // If search text is empty, show all games
+                
                 Games = new ObservableCollection<Games>(gameService.getAllGames());
             }
             else
@@ -168,9 +175,8 @@ namespace MauiApp98
                 Games = new ObservableCollection<Games>(gameService.getAllGames().Where(game => game.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase)));
             }
 
-            OnPropertyChanged(nameof(Games)); // Notify the UI that the collection has changed
+            OnPropertyChanged(nameof(Games)); 
         }
 
-        
-    }
-}
+    }    }
+

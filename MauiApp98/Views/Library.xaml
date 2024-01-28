@@ -2,27 +2,41 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp98.Views.Library"
-             Title="Library">
+             BackgroundImageSource="main_pozadina.png"
+             Shell.NavBarIsVisible="False">
     <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
         <Button Text="Return to Home Page" Clicked="ReturnToHomePage"/>
         <ScrollView VerticalOptions="FillAndExpand">
-            <StackLayout Orientation="Vertical" Spacing="10" Padding="10" BindableLayout.ItemsSource="{Binding GamesInCart}">
+            <StackLayout Orientation="Vertical" Spacing="20" BindableLayout.ItemsSource="{Binding GamesInCart}" Padding="0, 50">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <Frame CornerRadius="1">
-                            <StackLayout Orientation="Vertical" Spacing="10" Padding="10">
-                                <Label Text="{Binding Price}" FontSize="20" FontAttributes="Bold"/>
-                                <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold"/>
-                                <Button Text="Remove from Cart" Clicked="RemoveFromCartButton_Clicked" CommandParameter="{Binding .}"/>
-                            </StackLayout>
+                        <Frame CornerRadius="15" Padding="20" Margin="0,0,0,20">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Larger image on the left side -->
+                                <Image Grid.Column="0" Source="{Binding Logo}" Aspect="AspectFit" HeightRequest="100" WidthRequest="100"/>
+                                <!-- Centered game name -->
+                                <Label Grid.Column="1" Text="{Binding Name}" FontSize="20" FontAttributes="Bold"/>
+                                <!-- Price on the left, in euros and italic -->
+                                <Label Grid.Column="2" Text="{Binding Price, StringFormat='€ {0:#,##0.00}'}" FontSize="18" FontAttributes="Italic" HorizontalOptions="Start"/>
+                                <!-- Smaller Remove button on the right-bottom corner -->
+                                <Button Grid.Column="2" Text="Remove" Clicked="RemoveFromCartButton_Clicked" CommandParameter="{Binding .}" FontSize="14" HorizontalOptions="End" VerticalOptions="End"/>
+                            </Grid>
                         </Frame>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </StackLayout>
         </ScrollView>
-        <StackLayout Orientation="Horizontal" HorizontalOptions="End">
-            <Label Text="{Binding TotalPrice}" FontSize="20" FontAttributes="Bold"/>
-            <Button Text="Buy" Clicked="BuyAllButton_Clicked"/>
-        </StackLayout>
+        <Frame BackgroundColor="#3498DB" Padding="10" CornerRadius="15" Margin="10,0,10,20">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                <Label Text="{Binding TotalPrice, StringFormat='Total: € {0:#,##0.00}'}" FontSize="24" FontAttributes="Bold" TextColor="White" HorizontalOptions="Start"/>
+                <Button Text="BUY" Clicked="BuyAllButton_Clicked" BackgroundColor="#2E86C1" TextColor="White" FontAttributes="Bold" Margin="80, 0, 0, 0"/>
+            </StackLayout>
+        </Frame>
     </StackLayout>
 </ContentPage>

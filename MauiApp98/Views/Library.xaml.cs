@@ -3,6 +3,7 @@ using MauiApp98.Models;
 using MauiApp98.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace MauiApp98.Views;
 
@@ -62,24 +63,33 @@ public partial class Library : ContentPage, INotifyPropertyChanged
 
     private void LoadGamesInCart()
     {
-        var username = SecureStorage.GetAsync("username").Result;
-        int userId = userService.GetUserbyUsername(username).Id;
-
-        if (userId > 0)
+        try
         {
-            var gamesInCart = cartService.GetGamesInCart(userId);
-            GamesInCart.Clear();
+            var username = SecureStorage.GetAsync("username").Result;
+            int userId = userService.GetUserbyUsername(username)?.Id ?? 0;
 
-            foreach (var game in gamesInCart)
+            if (userId > 0)
             {
-                GamesInCart.Add(game);
-            }
+                var gamesInCart = cartService.GetGamesInCart(userId);
+                GamesInCart.Clear();
 
-            UpdateTotalPrice(); // Refresh the total price after loading games
+                foreach (var game in gamesInCart)
+                {
+                    GamesInCart.Add(game);
+                }
+
+                UpdateTotalPrice(); // Refresh the total price after loading games
+            }
+            else
+            {
+                // Handle the case where the userId is not valid
+                Debug.WriteLine("Invalid userId.");
+            }
         }
-        else
+        catch (Exception ex)
         {
-            // Handle the case where the userId is not valid
+            // Handle any unexpected exceptions
+            Debug.WriteLine($"An error occurred: {ex.Message}");
         }
     }
 
@@ -91,37 +101,56 @@ public partial class Library : ContentPage, INotifyPropertyChanged
 
     private void RemoveFromCartButton_Clicked(object sender, EventArgs e)
     {
-        if (sender is Button removeFromCartButton && removeFromCartButton.CommandParameter is Games selectedGame)
+        try
+        {
+            if (sender is Button removeFromCartButton && removeFromCartButton.CommandParameter is Games selectedGame)
+            {
+                var username = SecureStorage.GetAsync("username").Result;
+                int userId = userService.GetUserbyUsername(username)?.Id ?? 0;
+
+                if (userId > 0)
+                {
+                    cartService.RemoveGameFromCart(userId, selectedGame);
+                    LoadGamesInCart(); // Refresh the displayed games and total price after removing from cart
+                }
+                else
+                {
+                    // Handle the case where the userId is not valid
+                    Debug.WriteLine("Invalid userId.");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle any unexpected exceptions
+            Debug.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
+
+    private void BuyAllButton_Clicked(object sender, EventArgs e)
+    {
+        try
         {
             var username = SecureStorage.GetAsync("username").Result;
-            int userId = userService.GetUserbyUsername(username).Id;
+            int userId = userService.GetUserbyUsername(username)?.Id ?? 0;
 
             if (userId > 0)
             {
-                cartService.RemoveGameFromCart(userId, selectedGame);
-                LoadGamesInCart(); // Refresh the displayed games and total price after removing from cart
+                // Implement the logic to complete the purchase (empty the cart)
+                cartService.EmptyCart(userId);
+                LoadGamesInCart(); // Refresh the displayed games after buying all
+                UpdateTotalPrice(); // Refresh the displayed total price after buying all
             }
             else
             {
                 // Handle the case where the userId is not valid
+                Debug.WriteLine("Invalid userId.");
             }
         }
-    }
-    private void BuyAllButton_Clicked(object sender, EventArgs e)
-    {
-        var username = SecureStorage.GetAsync("username").Result;
-        int userId = userService.GetUserbyUsername(username).Id;
-
-        if (userId > 0)
+        catch (Exception ex)
         {
-            // Implement the logic to complete the purchase (empty the cart)
-            cartService.EmptyCart(userId);
-            LoadGamesInCart(); // Refresh the displayed games after buying all
-            UpdateTotalPrice(); // Refresh the displayed total price after buying all
-        }
-        else
-        {
-            // Handle the case where the userId is not valid
+            // Handle any unexpected exceptions
+            Debug.WriteLine($"An error occurred: {ex.Message}");
         }
     }
 
