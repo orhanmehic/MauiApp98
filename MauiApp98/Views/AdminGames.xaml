@@ -6,47 +6,84 @@
 
     <!-- First Tab: Add Games -->
     <ContentPage Title="Add Games">
-        <StackLayout>
-            <Label Text="Content for Add Games Tab" />
-            <!-- Add your content for Add Games tab here -->
-            
-            <Button Text="Back" Clicked="BackButton_Clicked" />
+        <StackLayout Margin="20">
+            <Label Text="Add a New Game" FontSize="24" HorizontalOptions="Center" Margin="0,0,0,20" />
 
+            <Entry Placeholder="Name" x:Name="NameEntry" FontSize="18" Margin="0,0,0,10" />
+            <Entry Placeholder="Price" x:Name="PriceEntry" FontSize="18" Margin="0,0,0,10" Keyboard="Numeric" />
+            <Entry Placeholder="Description" x:Name="DescriptionEntry" FontSize="18" Margin="0,0,0,10" />
+            <Entry Placeholder="Logo URL" x:Name="LogoEntry" FontSize="18" Margin="0,0,0,10" />
+            <Entry Placeholder="Video URL" x:Name="VideoEntry" FontSize="18" Margin="0,0,0,10" />
+
+            <Button Text="Add Game" Clicked="AddButton_Clicked" BackgroundColor="#4CAF50" TextColor="White" FontSize="18" CornerRadius="8" Margin="0,20,0,0" />
+            <Button Text="Back" Clicked="BackButton_Clicked" BackgroundColor="#2196F3" TextColor="White" FontSize="18" CornerRadius="8" Margin="0,10,0,0" />
         </StackLayout>
     </ContentPage>
+
 
     <!-- Second Tab: Manage Games -->
     <ContentPage Title="Manage Games">
-        <StackLayout>
-            <Label Text="Content for Manage Games Tab" />
+    <StackLayout>
+        <Label Text="Content for Manage Games Tab" />
+
+        <ScrollView VerticalOptions="FillAndExpand">
             <StackLayout>
-                <Label Text="edit delete games"></Label>
-        
-                <ScrollView VerticalOptions="FillAndExpand">
-                    <StackLayout Orientation="Vertical" Spacing="10" Padding="10" BindableLayout.ItemsSource="{Binding Games}">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <Frame CornerRadius="1">
-                                    <StackLayout Orientation="Vertical" Spacing="10" Padding="10">
-                                        <Label TextColor="Black" Text="{Binding Price}" FontSize="20" FontAttributes="Bold"/>
-                                        <Label TextColor="Black" Text="{Binding Name}" FontSize="20" FontAttributes="Bold"/>
-                                        <Button Text="Update"  CommandParameter="{Binding .}"/>
-                                        <Button Text="Delete"  CommandParameter="{Binding .}"/>
+                <Label Text="Edit/Delete Games" />
 
+                <StackLayout Orientation="Vertical" Spacing="10" Padding="10" BindableLayout.ItemsSource="{Binding Games}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Frame CornerRadius="10"
+                                   BackgroundColor="#FFFFFF"
+                                   HasShadow="True"
+                                   Margin="0,0,0,10">
+                                <StackLayout Padding="10">
+                                    <Label Text="{Binding Name}"
+                                           TextColor="#333333"
+                                           FontSize="20"
+                                           FontAttributes="Bold"
+                                           Margin="0,0,0,5"/>
+                                    <Label Text="{Binding Price, StringFormat='Price: ${0:N2}'}"
+                                           TextColor="#666666"
+                                           FontSize="16"
+                                           Margin="0,0,0,5"/>
+                                    <Label Text="{Binding Description}"
+                                           TextColor="#666666"
+                                           FontSize="16"
+                                           Margin="0,0,0,5"/>
+                                    <!-- Add more labels here for other game details -->
+
+                                    <StackLayout Orientation="Horizontal" Spacing="10">
+                                        <Button Text="Update"
+                                                Clicked="UpdateButton_Clicked"
+                                                CommandParameter="{Binding .}"
+                                                BackgroundColor="#6200EE"
+                                                TextColor="White"
+                                                CornerRadius="8"
+                                                Margin="0,10,0,0"
+                                                HorizontalOptions="FillAndExpand"/>
+                                        <Button Text="Delete"
+                                                Clicked="DeleteButton_Clicked"
+                                                CommandParameter="{Binding .}"
+                                                BackgroundColor="#FF3D00"
+                                                TextColor="White"
+                                                CornerRadius="8"
+                                                Margin="0,10,0,0"
+                                                HorizontalOptions="FillAndExpand"/>
                                     </StackLayout>
-                                </Frame>
-                            </DataTemplate>
-
-                        </BindableLayout.ItemTemplate>
-                    </StackLayout>
-                </ScrollView>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
             </StackLayout>
-            
-            <Button Text="Back" Clicked="BackButton_Clicked" />
+        </ScrollView>
 
-        </StackLayout>
-        
-    </ContentPage>
+        <Button Text="Back" Clicked="BackButton_Clicked" Margin="0,20,0,0"/>
+    </StackLayout>
+</ContentPage>
+
+
     
 
 </TabbedPage>
