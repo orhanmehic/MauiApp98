@@ -1,18 +1,44 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiApp98.Views.Login">
+             x:Class="MauiApp98.Views.Login"
+             BackgroundImageSource="login_pozadinaa.jpg">
 
-    <StackLayout Orientation="Vertical">
-        <Entry x:Name="UsernameEntry" Placeholder="Username" />
-        <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="true" />
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryColor">#007bff</Color>
+            <Style TargetType="Button" x:Key="PrimaryButtonStyle">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="Margin" Value="0,10,0,0" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-        <Button Text="Login" Clicked="LoginUser" />
-        <Button Clicked="mainpage" Text="back to maina"></Button>
-        
-        
-        
+    <StackLayout Orientation="Vertical" Padding="20">
+        <Label Text="Welcome!" FontSize="Large" HorizontalOptions="CenterAndExpand" Margin="0,20,0,0" />
+
+        <Entry x:Name="UsernameEntry" Placeholder="Username" Margin="0,20,0,0"
+               BackgroundColor="#f0f0f0" HeightRequest="40" />
+        <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="true" Margin="0,10,0,0"
+               BackgroundColor="#f0f0f0"  HeightRequest="40" />
+
+        <Button Text="Login" Clicked="LoginUser" Style="{StaticResource PrimaryButtonStyle}" />
+
+        <Label Text="Don't have an account? Press here to register!" HorizontalOptions="Center">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="RegisterClicked" />
+            </Label.GestureRecognizers>
+            <Label.TextColor>
+                <OnPlatform x:TypeArguments="Color">
+                    <On Platform="iOS" Value="{StaticResource PrimaryColor}" />
+                    <On Platform="Android" Value="#007bff" />
+                </OnPlatform>
+            </Label.TextColor>
+        </Label>
+
     </StackLayout>
 
 </ContentPage>
-

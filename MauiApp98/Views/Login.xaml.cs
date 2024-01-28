@@ -48,5 +48,9 @@ public partial class Login : ContentPage
 		
 	}
 
-	
+
+	private void RegisterClicked(object? sender, TappedEventArgs e)
+	{
+		Navigation.PushAsync(new Register(UserService));
+	}
 }
