@@ -2,16 +2,35 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp98.Views.Register"
-             Title="Register">
-    
-    <StackLayout Orientation="Vertical">
-        <Entry Placeholder="Username" x:Name="UsernameEntry" />
-        <Entry Placeholder="Email" x:Name="EmailEntry" />
-        <Entry Placeholder="Password" IsPassword="True" x:Name="PasswordEntry" />
-        <Entry Placeholder="Confirm Password" IsPassword="True" x:Name="ConfirmPasswordEntry" />
+             Title="Register"
+             BackgroundImageSource="login_pozadinaa.jpg">
 
-        <Button Text="Register" Clicked="RegisterUser" ></Button>
-        <Button Clicked="mainpage" Text="back to main"></Button>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryColor">#007bff</Color>
+            <Style TargetType="Button" x:Key="PrimaryButtonStyle">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="Margin" Value="0,10,0,0" />
+            </Style>
+            <Style TargetType="Entry" x:Key="EntryStyle">
+                <Setter Property="BackgroundColor" Value="#f0f0f0" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="Margin" Value="0,10,0,0" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout Orientation="Vertical" Padding="20">
+        <Entry Placeholder="Username" x:Name="UsernameEntry" Style="{StaticResource EntryStyle}" />
+        <Entry Placeholder="Email" x:Name="EmailEntry" Style="{StaticResource EntryStyle}" />
+        <Entry Placeholder="Password" IsPassword="True" x:Name="PasswordEntry" Style="{StaticResource EntryStyle}" />
+        <Entry Placeholder="Confirm Password" IsPassword="True" x:Name="ConfirmPasswordEntry" Style="{StaticResource EntryStyle}" />
+
+        <Button Text="Register" Clicked="RegisterUser" Style="{StaticResource PrimaryButtonStyle}" />
+        <Button Text="Back to Main" Clicked="mainpage" Style="{StaticResource PrimaryButtonStyle}" />
     </StackLayout>
-    
+
 </ContentPage>

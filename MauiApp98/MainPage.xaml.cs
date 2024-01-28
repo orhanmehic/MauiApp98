@@ -2,13 +2,8 @@
 using MauiApp98.Models;
 using MauiApp98.Services;
 using MauiApp98.Views;
-using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-
 
 namespace MauiApp98
 {
@@ -23,8 +18,7 @@ namespace MauiApp98
         public MainPage()
         {
             InitializeComponent();
-            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "test.db");
+            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "test.db");
             SqliteData database = new SqliteData(dbPath);
             userService = new UserService(database);
             gameService = new GameService(database);
@@ -57,6 +51,9 @@ namespace MauiApp98
         private void Login(object sender, EventArgs e)
         {
             Navigation.PushAsync(new Login(userService));
+
+            isLoggedIn();
+
         }
 
         private void Registration(object sender, EventArgs e)
@@ -67,17 +64,18 @@ namespace MauiApp98
         private void Logout(object sender, EventArgs e)
         {
             SecureStorage.Remove("username");
-            Navigation.PopToRootAsync();
-        }
 
-        private async void GameTapped(object sender, EventArgs e)
-        {
-            if (sender is StackLayout stackLayout && stackLayout.BindingContext is Games game)
-            {
-                // Navigate to the GameAboutPage and pass the selected game as a parameter
-                await Navigation.PushAsync(new aboutGame(game, this));
-            }
+
         }
+    
+    private async void GameTapped(object sender, EventArgs e)
+    {
+        if (sender is StackLayout stackLayout && stackLayout.BindingContext is Games game)
+        {
+            // Navigate to the GameAboutPage and pass the selected game as a parameter
+            await Navigation.PushAsync(new aboutGame(game, this));
+        }
+    }
 
         private void Library(object sender, EventArgs e)
         {
@@ -97,11 +95,11 @@ namespace MauiApp98
                     var username = SecureStorage.GetAsync("username").Result;
                     var user = userService.GetUserbyUsername(username);
 
-                Debug.WriteLine(username);
+                    Debug.WriteLine(username);
 
-                if (user != null)
-                {
-                    var userId = user.Id;
+                    if (user != null)
+                    {
+                        var userId = user.Id;
 
                         if (userId > 0)
                         {
@@ -121,8 +119,7 @@ namespace MauiApp98
                 {
                     // Handle the case where the user is not logged in
                 }
-            }
-        }
+         }
 
         public void ClickedLibrary(object sender, EventArgs e)
         {
@@ -155,20 +152,20 @@ namespace MauiApp98
 
         private void FilterGames()
         {
-            // Update the list of games based on the searchText
+            
             if (string.IsNullOrEmpty(searchText))
             {
-                // If search text is empty, show all games
+                
                 Games = new ObservableCollection<Games>(gameService.getAllGames());
             }
             else
             {
                 // Filter games based on the search text
-                Games = new ObservableCollection<Games>(gameService.getAllGames().Where(game =>
-                    game.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase)));
+                Games = new ObservableCollection<Games>(gameService.getAllGames().Where(game => game.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase)));
             }
 
-            OnPropertyChanged(nameof(Games)); // Notify the UI that the collection has changed
+            OnPropertyChanged(nameof(Games)); 
         }
-    }
-}
+
+    }    }
+
