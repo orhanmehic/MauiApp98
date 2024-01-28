@@ -84,13 +84,13 @@ namespace MauiApp98
             Navigation.PushAsync(new Library());
         }
 
-        private void AddToCartButton_Clicked(object sender, EventArgs e)
+        public void AddToCart(Games game)
         {
-            if (sender is Button addToCartButton && addToCartButton.CommandParameter is Games selectedGame)
+            
             {
-                Debug.WriteLine($"Selected Game: {selectedGame.Name}");
-    public void AddToCart(Games game)
-    {
+                Debug.WriteLine($"Selected Game: {game.Name}");
+            
+    
 
                 if (!String.IsNullOrEmpty(SecureStorage.GetAsync("username").Result))
                 {
@@ -105,7 +105,7 @@ namespace MauiApp98
 
                         if (userId > 0)
                         {
-                            cartService.AddGameToCart(userId, selectedGame);
+                            cartService.AddGameToCart(userId, game);
                         }
                         else
                         {
