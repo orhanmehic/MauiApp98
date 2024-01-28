@@ -1,18 +1,47 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiApp98.Views.AdminUsers">
-    <ContentPage.Content>
-        <ListView x:Name="UsersListView" ItemsSource="{Binding Users}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal" Padding="10">
-                            <Label Text="{Binding Username}" VerticalOptions="Center" />
-                            <Button Text="Delete" Clicked="DeleteButton_Clicked" CommandParameter="{Binding .}" />
+             x:Class="MauiApp98.Views.AdminUsers"
+             Shell.BackgroundColor="White"
+             Shell.ForegroundColor="Black"
+             Shell.TitleColor="Black"
+             BackgroundColor="FloralWhite"
+             Title="Users Management">
+    <CollectionView ItemsSource="{Binding Users}"
+                    Margin="12">
+
+        <CollectionView.ItemsLayout>
+            <GridItemsLayout HorizontalItemSpacing="12"
+                             Orientation="Vertical"
+                             Span="2"
+                             VerticalItemSpacing="12" />
+        </CollectionView.ItemsLayout>
+
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Frame BorderColor="Black"       
+                       CornerRadius="5"         
+                       HasShadow="True">       
+                    <StackLayout Margin="0"
+                                 BackgroundColor="White"
+                                 HorizontalOptions="FillAndExpand"
+                                 Padding="10">
+                        <StackLayout Orientation="Vertical"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Start"
+                                     Spacing="8">
+                            <Label FontSize="16" Text="{Binding Username, StringFormat='Username: {0}'}" TextColor="Black" />
+                            <Label FontSize="12" Text="{Binding Email, StringFormat='Email: {0}'}" TextColor="#929292" />
+                            <Button Text="Delete"
+                                    Clicked="DeleteButton_Clicked"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="#FF3D00"
+                                    TextColor="White"
+                                    CornerRadius="5"
+                                    Margin="10,0,0,0" />
                         </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </ContentPage.Content>
+                    </StackLayout>
+                </Frame>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 </ContentPage>
