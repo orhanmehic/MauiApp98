@@ -4,26 +4,41 @@
              x:Class="MauiApp98.Views.AdminPage"
              Title="AdminPage"
              BackgroundImageSource="admin_pozadina.png">
-    <VerticalStackLayout>
+
+    <VerticalStackLayout Spacing="20" Padding="20">
         
-        <Label 
-            Text="Welcome to .NET MAUI admin page!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        
+        <Label Text="Welcome to .NET MAUI admin page!"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center"
+               FontSize="24"
+               TextColor="#333333" />
         
         <Label Text="What would you like to do?"
                VerticalOptions="Center"
                HorizontalOptions="Center"
-               FontSize="24"/>
+               FontSize="24"
+               TextColor="#333333" />
         
-        <StackLayout Margin="40, 30, 75, 20">
-            <Button WidthRequest="180" Text="Games Management" Clicked="adminGames" Margin="0, 0, 20, 0"></Button>
-            <Button WidthRequest="180" Text="Users Management" Clicked="adminUsers"></Button>
+        <StackLayout Spacing="10" HorizontalOptions="Center">
+            <Button WidthRequest="180" 
+                    Text="Games Management" 
+                    Clicked="adminGames"
+                    BackgroundColor="#007BFF"
+                    TextColor="White" >
+            </Button>
+            <Button WidthRequest="180" 
+                    Text="Users Management" 
+                    Clicked="adminUsers"
+                    BackgroundColor="#28A745"
+                    TextColor="White">
+            </Button>
         </StackLayout>
         
-        
-        <Button WidthRequest="90" Text="Go baack" Clicked="backpage" ></Button>
+        <Button WidthRequest="90" 
+                Text="Go Back" 
+                Clicked="backpage" 
+                BackgroundColor="#DC3545"
+                TextColor="White" />
         
         
     </VerticalStackLayout>

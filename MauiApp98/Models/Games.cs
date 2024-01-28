@@ -11,7 +11,7 @@ namespace MauiApp98.Models
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        [NotNull, Unique]
+        [NotNull]
         public string Name { get; set; }
         [NotNull]
         public double Price { get; set; }
