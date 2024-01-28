@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.System;
+
 
 namespace MauiApp98.Models
 {
@@ -13,7 +13,7 @@ namespace MauiApp98.Models
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        [NotNull, Unique]
+       
 
         public int UserId { get; set; }
 

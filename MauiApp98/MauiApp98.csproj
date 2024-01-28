@@ -57,6 +57,13 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Remove="Resources\Images\ikonamain.png" />
+      <None Remove="Resources\Images\ikona_main.png" />
+      <None Remove="Resources\Images\mainikona.png" />
+      <None Remove="Resources\Images\pozadina_main.png" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="BCrypt.Net" Version="0.1.0" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.6" />
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.6" />
