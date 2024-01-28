@@ -1,10 +1,7 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp98.Views.AdminUsers"
-             Shell.BackgroundColor="White"
-             Shell.ForegroundColor="Black"
-             Shell.TitleColor="Black"
-             BackgroundColor="FloralWhite"
+             BackgroundImageSource="admin_poz.jpg"
              Title="Users Management">
     <CollectionView ItemsSource="{Binding Users}"
                     Margin="12">

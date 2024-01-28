@@ -2,11 +2,11 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiApp98.Views.AdminManageGames">
+             x:Class="MauiApp98.Views.AdminManageGames"
+             BackgroundImageSource="igre_pozadina.jpg">
     <ContentPage.Content>
         
         <StackLayout>
-        <Label Text="edit delete games"></Label>
         
         <ScrollView VerticalOptions="FillAndExpand">
             <StackLayout Orientation="Vertical" Spacing="10" Padding="10" BindableLayout.ItemsSource="{Binding Games}">

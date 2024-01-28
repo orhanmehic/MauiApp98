@@ -2,8 +2,13 @@
 using MauiApp98.Models;
 using MauiApp98.Services;
 using MauiApp98.Views;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+
 
 namespace MauiApp98
 {
@@ -18,7 +23,8 @@ namespace MauiApp98
         public MainPage()
         {
             InitializeComponent();
-            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "test.db");
+            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "test.db");
             SqliteData database = new SqliteData(dbPath);
             userService = new UserService(database);
             gameService = new GameService(database);
@@ -63,19 +69,15 @@ namespace MauiApp98
             SecureStorage.Remove("username");
             Navigation.PopToRootAsync();
         }
-    private void Logout(object sender, EventArgs e)
-    {
-        SecureStorage.Remove("username");
-        Navigation.PopToRootAsync();
-    }
-    private async void GameTapped(object sender, EventArgs e)
-    {
-        if (sender is StackLayout stackLayout && stackLayout.BindingContext is Games game)
+
+        private async void GameTapped(object sender, EventArgs e)
         {
-            // Navigate to the GameAboutPage and pass the selected game as a parameter
-            await Navigation.PushAsync(new aboutGame(game, this));
+            if (sender is StackLayout stackLayout && stackLayout.BindingContext is Games game)
+            {
+                // Navigate to the GameAboutPage and pass the selected game as a parameter
+                await Navigation.PushAsync(new aboutGame(game, this));
+            }
         }
-    }
 
         private void Library(object sender, EventArgs e)
         {
@@ -87,42 +89,44 @@ namespace MauiApp98
             if (sender is Button addToCartButton && addToCartButton.CommandParameter is Games selectedGame)
             {
                 Debug.WriteLine($"Selected Game: {selectedGame.Name}");
-    public void AddToCart(Games game)
-    {
+                AddToCart(selectedGame);
+            }
+        }
 
-                if (!String.IsNullOrEmpty(SecureStorage.GetAsync("username").Result))
+        public void AddToCart(Games game)
+        {
+            if (!String.IsNullOrEmpty(SecureStorage.GetAsync("username").Result))
+            {
+                var username = SecureStorage.GetAsync("username").Result;
+                var user = userService.GetUserbyUsername(username);
+
+                Debug.WriteLine(username);
+
+                if (user != null)
                 {
-                    var username = SecureStorage.GetAsync("username").Result;
-                    var user = userService.GetUserbyUsername(username);
+                    var userId = user.Id;
 
-                    Debug.WriteLine(username);
-
-                    if (user != null)
+                    if (userId > 0)
                     {
-                        var userId = user.Id;
-
-                        if (userId > 0)
-                        {
-                            cartService.AddGameToCart(userId, selectedGame);
-                        }
-                        else
-                        {
-                            // Handle the case where the userId is not valid
-                        }
+                        cartService.AddGameToCart(userId, game);
                     }
                     else
                     {
-                        // Handle the case where the user object is null
+                        // Handle the case where the userId is not valid
                     }
                 }
                 else
                 {
-                    // Handle the case where the user is not logged in
+                    // Handle the case where the user object is null
                 }
+            }
+            else
+            {
+                // Handle the case where the user is not logged in
             }
         }
 
-        public void ClickedLibrary(object sender, EventArgs e)
+        private void ClickedLibrary(object sender, EventArgs e)
         {
             Navigation.PushAsync(new Library());
         }
@@ -162,12 +166,11 @@ namespace MauiApp98
             else
             {
                 // Filter games based on the search text
-                Games = new ObservableCollection<Games>(gameService.getAllGames().Where(game => game.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase)));
+                Games = new ObservableCollection<Games>(gameService.getAllGames().Where(game =>
+                    game.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase)));
             }
 
             OnPropertyChanged(nameof(Games)); // Notify the UI that the collection has changed
         }
-
-        
     }
 }
