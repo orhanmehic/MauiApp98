@@ -63,19 +63,15 @@ namespace MauiApp98
             SecureStorage.Remove("username");
             Navigation.PopToRootAsync();
         }
-    private void Logout(object sender, EventArgs e)
-    {
-        SecureStorage.Remove("username");
-        Navigation.PopToRootAsync();
-    }
-    private async void GameTapped(object sender, EventArgs e)
-    {
-        if (sender is StackLayout stackLayout && stackLayout.BindingContext is Games game)
+        
+        private async void GameTapped(object sender, EventArgs e)
         {
-            // Navigate to the GameAboutPage and pass the selected game as a parameter
-            await Navigation.PushAsync(new aboutGame(game, this));
+            if (sender is StackLayout stackLayout && stackLayout.BindingContext is Games game)
+            {
+                // Navigate to the GameAboutPage and pass the selected game as a parameter
+                await Navigation.PushAsync(new aboutGame(game, this));
+            }
         }
-    }
 
         private void Library(object sender, EventArgs e)
         {
@@ -87,8 +83,10 @@ namespace MauiApp98
             if (sender is Button addToCartButton && addToCartButton.CommandParameter is Games selectedGame)
             {
                 Debug.WriteLine($"Selected Game: {selectedGame.Name}");
-    public void AddToCart(Games game)
-    {
+            }
+        }
+            public void AddToCart(Games game)
+            {
 
                 if (!String.IsNullOrEmpty(SecureStorage.GetAsync("username").Result))
                 {
@@ -103,7 +101,7 @@ namespace MauiApp98
 
                         if (userId > 0)
                         {
-                            cartService.AddGameToCart(userId, selectedGame);
+                            cartService.AddGameToCart(userId, game);
                         }
                         else
                         {
@@ -120,7 +118,7 @@ namespace MauiApp98
                     // Handle the case where the user is not logged in
                 }
             }
-        }
+        
 
         public void ClickedLibrary(object sender, EventArgs e)
         {
