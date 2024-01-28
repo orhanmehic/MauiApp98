@@ -54,5 +54,17 @@ namespace MauiApp98.Services
         {
             return database.GetAll<Users>().FirstOrDefault(user => user.Username == username);
         }
+        
+        public List<Users> getAllUsers()
+        {
+            return database.GetAll<Users>();
+
+        }
+        
+        public void DeleteUser(Users user)
+        {
+            database.Update(user);
+        }
+        
     }
 }
