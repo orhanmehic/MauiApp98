@@ -67,15 +67,15 @@ namespace MauiApp98
 
 
         }
-    
-    private async void GameTapped(object sender, EventArgs e)
-    {
-        if (sender is StackLayout stackLayout && stackLayout.BindingContext is Games game)
+
+        private async void GameTapped(object sender, EventArgs e)
         {
-            // Navigate to the GameAboutPage and pass the selected game as a parameter
-            await Navigation.PushAsync(new aboutGame(game, this));
+            if (sender is StackLayout stackLayout && stackLayout.BindingContext is Games game)
+            {
+                // Navigate to the GameAboutPage and pass the selected game as a parameter
+                await Navigation.PushAsync(new aboutGame(game, this));
+            }
         }
-    }
 
         private void Library(object sender, EventArgs e)
         {
@@ -84,11 +84,11 @@ namespace MauiApp98
 
         public void AddToCart(Games game)
         {
-            
+
             {
                 Debug.WriteLine($"Selected Game: {game.Name}");
-            
-    
+
+
 
                 if (!String.IsNullOrEmpty(SecureStorage.GetAsync("username").Result))
                 {
@@ -119,7 +119,8 @@ namespace MauiApp98
                 {
                     // Handle the case where the user is not logged in
                 }
-         }
+            }
+        }
 
         public void ClickedLibrary(object sender, EventArgs e)
         {
@@ -152,10 +153,10 @@ namespace MauiApp98
 
         private void FilterGames()
         {
-            
+
             if (string.IsNullOrEmpty(searchText))
             {
-                
+
                 Games = new ObservableCollection<Games>(gameService.getAllGames());
             }
             else
@@ -164,8 +165,9 @@ namespace MauiApp98
                 Games = new ObservableCollection<Games>(gameService.getAllGames().Where(game => game.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase)));
             }
 
-            OnPropertyChanged(nameof(Games)); 
+            OnPropertyChanged(nameof(Games));
         }
 
-    }    }
+    }
+}
 
