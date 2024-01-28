@@ -45,12 +45,26 @@ namespace MauiApp98.Services
 
         }
 
-        public void RemoveGameFromCart(Cart cart, Games game)
+        public void RemoveGameFromCart(int UserId, Games game)
         {
+            var cart = database.GetAll<Cart>()
+                               .FirstOrDefault(c => c.UserId == UserId && c.GameId == game.Id);
 
-
+            if (cart != null)
+            {
+                database.Delete(cart);
+            }
         }
 
+        public void EmptyCart(int UserId)
+        {
+            var cartsToRemove = database.GetAll<Cart>().Where(c => c.UserId == UserId).ToList();
+
+            foreach (var cart in cartsToRemove)
+            {
+                database.Delete(cart);
+            }
+        }
     }
 
 
