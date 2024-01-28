@@ -87,15 +87,16 @@ namespace MauiApp98
             if (sender is Button addToCartButton && addToCartButton.CommandParameter is Games selectedGame)
             {
                 Debug.WriteLine($"Selected Game: {selectedGame.Name}");
+                AddToCart(selectedGame);
+            }
+        }
 
-    public void AddToCart(Games game)
-    {
-
-                if (!String.IsNullOrEmpty(SecureStorage.GetAsync("username").Result))
-                {
-                    var username = SecureStorage.GetAsync("username").Result;
-                    var user = userService.GetUserbyUsername(username);
-                    addToCartButton.CommandParameter = selectedGame;
+        public void AddToCart(Games game)
+        {
+            if (!String.IsNullOrEmpty(SecureStorage.GetAsync("username").Result))
+            {
+                var username = SecureStorage.GetAsync("username").Result;
+                var user = userService.GetUserbyUsername(username);
 
                     Debug.WriteLine(username);
 
