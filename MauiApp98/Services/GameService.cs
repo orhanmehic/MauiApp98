@@ -24,10 +24,20 @@ namespace MauiApp98.Services
             return database.GetAll<Games>();
 
         }
+        public void AddGame(Games game)
+        {
+            database.Insert(game);
+        }
 
+        public void DeleteGame(Games game)
+        {
+            database.Delete(game);
+        }
+
+        public void UpdateGame(Games game)
+        {
+            database.Update(game);
+        }
     }
-
-
-
-
+    
 }

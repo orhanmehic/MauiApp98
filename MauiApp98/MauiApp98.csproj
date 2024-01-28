@@ -65,6 +65,8 @@
 
     <ItemGroup>
         <PackageReference Include="BCrypt.Net" Version="0.1.0" />
+        <PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
+        <PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="3.0.1" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.6" />
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.6" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -74,6 +76,15 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Update="Views\aboutGame.xaml.cs">
+        <DependentUpon>aboutGame.xaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <MauiXaml Update="Views\aboutGame.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
       <MauiXaml Update="Views\AdminPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>

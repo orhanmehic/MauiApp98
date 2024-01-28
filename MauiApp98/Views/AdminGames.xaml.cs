@@ -49,5 +49,110 @@ namespace MauiApp98.Views
         {
             await Navigation.PopModalAsync();
         }
+
+        private async void AddButton_Clicked(object sender, EventArgs e)
+        {
+            // Get values entered by the user
+            string name = NameEntry.Text;
+            double price = double.Parse(PriceEntry.Text);
+            string description = DescriptionEntry.Text;
+            string logo = LogoEntry.Text;
+            string video = VideoEntry.Text;
+
+            // Create a new Games object
+            Games newGame = new Games
+            {
+                Name = name,
+                Price = price,
+                Description = description,
+                Logo = logo,
+                Video = video
+            };
+
+            // Call the method to add the game to the database
+            gameService.AddGame(newGame);
+
+            // Clear input fields
+            NameEntry.Text = "";
+            PriceEntry.Text = "";
+            DescriptionEntry.Text = "";
+            LogoEntry.Text = "";
+            VideoEntry.Text = "";
+
+            // Display success message
+            await DisplayAlert("Success", $"{name} has been successfully added.", "OK");
+
+            // Optionally, update the UI to reflect the changes
+            Games.Add(newGame);
+        }
+
+        
+        private async void DeleteButton_Clicked(object? sender, EventArgs e)
+        {
+            // Retrieve the game that corresponds to the clicked button
+            var game = (sender as Button)?.CommandParameter as Games;
+    
+            if (game != null)
+            {
+                // Display confirmation dialog before deleting
+                bool answer = await DisplayAlert("Confirmation", $"Are you sure you want to delete {game.Name}?", "Yes", "No");
+
+                if (answer)
+                {
+                    // Call the method to delete the game from the database
+                    gameService.DeleteGame(game);
+            
+                    // Remove the game from the ObservableCollection
+                    Games.Remove(game);
+
+                    // Display success message
+                    await DisplayAlert("Success", $"{game.Name} has been successfully deleted.", "OK");
+                }
+            }
+        }
+
+        private async void UpdateButton_Clicked(object? sender, EventArgs e)
+        {
+            // Retrieve the game that corresponds to the clicked button
+            var game = (sender as Button)?.CommandParameter as Games;
+
+            if (game != null)
+            {
+                // Display input dialogs to edit the game details
+                string newName = await DisplayPromptAsync("Edit Name", "Enter new name:", initialValue: game.Name);
+                string newPriceString = await DisplayPromptAsync("Edit Price", "Enter new price:", initialValue: game.Price.ToString());
+                string newDescription = await DisplayPromptAsync("Edit Description", "Enter new description:", initialValue: game.Description);
+                string newLogo = await DisplayPromptAsync("Edit Logo", "Enter new logo:", initialValue: game.Logo);
+                string newVideo = await DisplayPromptAsync("Edit Video", "Enter new video:", initialValue: game.Video);
+
+                if (newName != null && double.TryParse(newPriceString, out double newPrice))
+                {
+                    // Update the game details
+                    game.Name = newName;
+                    game.Price = newPrice;
+                    game.Description = newDescription;
+                    game.Logo = newLogo;
+                    game.Video = newVideo;
+
+                    // Call the method to update the game in the database
+                    gameService.UpdateGame(game);
+
+                    // Find the index of the updated game in the collection
+                    int index = Games.IndexOf(game);
+                    if (index != -1)
+                    {
+                        // Remove the old game from the collection
+                        Games.RemoveAt(index);
+                        // Insert the updated game at the same index
+                        Games.Insert(index, game);
+                    }
+
+                    // Display success message
+                    await DisplayAlert("Success", "Game updated successfully.", "OK");
+                }
+            }
+        }
+        
+
     }
 }

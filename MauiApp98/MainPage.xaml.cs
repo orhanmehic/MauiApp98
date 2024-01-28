@@ -1,11 +1,9 @@
-﻿using SQLite;
-using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
-using MauiApp98.Views;
-using MauiApp98.Data;
-using MauiApp98.Services;
+﻿using MauiApp98.Data;
 using MauiApp98.Models;
+using MauiApp98.Services;
+using MauiApp98.Views;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace MauiApp98
 {
@@ -65,6 +63,19 @@ namespace MauiApp98
             SecureStorage.Remove("username");
             Navigation.PopToRootAsync();
         }
+    private void Logout(object sender, EventArgs e)
+    {
+        SecureStorage.Remove("username");
+        Navigation.PopToRootAsync();
+    }
+    private async void GameTapped(object sender, EventArgs e)
+    {
+        if (sender is StackLayout stackLayout && stackLayout.BindingContext is Games game)
+        {
+            // Navigate to the GameAboutPage and pass the selected game as a parameter
+            await Navigation.PushAsync(new aboutGame(game, this));
+        }
+    }
 
         private void Library(object sender, EventArgs e)
         {
@@ -76,6 +87,8 @@ namespace MauiApp98
             if (sender is Button addToCartButton && addToCartButton.CommandParameter is Games selectedGame)
             {
                 Debug.WriteLine($"Selected Game: {selectedGame.Name}");
+    public void AddToCart(Games game)
+    {
 
                 if (!String.IsNullOrEmpty(SecureStorage.GetAsync("username").Result))
                 {
