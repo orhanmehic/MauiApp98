@@ -89,16 +89,13 @@ namespace MauiApp98
             if (sender is Button addToCartButton && addToCartButton.CommandParameter is Games selectedGame)
             {
                 Debug.WriteLine($"Selected Game: {selectedGame.Name}");
-                AddToCart(selectedGame);
-            }
-        }
+    public void AddToCart(Games game)
+    {
 
-        public void AddToCart(Games game)
-        {
-            if (!String.IsNullOrEmpty(SecureStorage.GetAsync("username").Result))
-            {
-                var username = SecureStorage.GetAsync("username").Result;
-                var user = userService.GetUserbyUsername(username);
+                if (!String.IsNullOrEmpty(SecureStorage.GetAsync("username").Result))
+                {
+                    var username = SecureStorage.GetAsync("username").Result;
+                    var user = userService.GetUserbyUsername(username);
 
                 Debug.WriteLine(username);
 
@@ -106,27 +103,28 @@ namespace MauiApp98
                 {
                     var userId = user.Id;
 
-                    if (userId > 0)
-                    {
-                        cartService.AddGameToCart(userId, game);
+                        if (userId > 0)
+                        {
+                            cartService.AddGameToCart(userId, selectedGame);
+                        }
+                        else
+                        {
+                            // Handle the case where the userId is not valid
+                        }
                     }
                     else
                     {
-                        // Handle the case where the userId is not valid
+                        // Handle the case where the user object is null
                     }
                 }
                 else
                 {
-                    // Handle the case where the user object is null
+                    // Handle the case where the user is not logged in
                 }
-            }
-            else
-            {
-                // Handle the case where the user is not logged in
             }
         }
 
-        private void ClickedLibrary(object sender, EventArgs e)
+        public void ClickedLibrary(object sender, EventArgs e)
         {
             Navigation.PushAsync(new Library());
         }
