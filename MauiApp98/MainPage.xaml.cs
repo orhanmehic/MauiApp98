@@ -64,7 +64,6 @@ namespace MauiApp98
         private void Logout(object sender, EventArgs e)
         {
             SecureStorage.Remove("username");
-            isLoggedIn();
 
 
         }
@@ -73,7 +72,7 @@ namespace MauiApp98
     {
         if (sender is StackLayout stackLayout && stackLayout.BindingContext is Games game)
         {
-
+            // Navigate to the GameAboutPage and pass the selected game as a parameter
             await Navigation.PushAsync(new aboutGame(game, this));
         }
     }
@@ -94,43 +93,36 @@ namespace MauiApp98
 
         public void AddToCart(Games game)
         {
-            try
+            if (!String.IsNullOrEmpty(SecureStorage.GetAsync("username").Result))
             {
                 var username = SecureStorage.GetAsync("username").Result;
-
-                if (string.IsNullOrEmpty(username))
-                {
-                    // Handle the case where the username is null or empty
-                    Debug.WriteLine("Username is null or empty.");
-                    return;
-                }
-
                 var user = userService.GetUserbyUsername(username);
 
-                if (user == null)
-                {
-                    // Handle the case where the user object is null
-                    Debug.WriteLine("User object is null.");
-                    return;
+                    Debug.WriteLine(username);
+
+                    if (user != null)
+                    {
+                        var userId = user.Id;
+
+                        if (userId > 0)
+                        {
+                            cartService.AddGameToCart(userId, game);
+                        }
+                        else
+                        {
+                            // Handle the case where the userId is not valid
+                        }
+                    }
+                    else
+                    {
+                        // Handle the case where the user object is null
+                    }
                 }
-
-                var userId = user.Id;
-
-                if (userId <= 0)
+                else
                 {
-                    // Handle the case where the userId is not valid
-                    Debug.WriteLine("Invalid userId.");
-                    return;
+                    // Handle the case where the user is not logged in
                 }
-
-                cartService.AddGameToCart(userId, game);
-            }
-            catch (Exception ex)
-            {
-                // Handle any unexpected exceptions
-                Debug.WriteLine($"An error occurred: {ex.Message}");
-            }
-        }
+         }
 
         public void ClickedLibrary(object sender, EventArgs e)
         {
