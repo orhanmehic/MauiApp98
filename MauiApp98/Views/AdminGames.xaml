@@ -4,8 +4,9 @@
             x:Class="MauiApp98.Views.AdminGames"
             Title="Games Management">
 
+
     <!-- First Tab: Add Games -->
-    <ContentPage Title="Add Games">
+    <ContentPage Title="Add Games" BackgroundImageSource="igre_poz.png">
         <StackLayout Margin="20">
             <Label Text="Add a New Game" FontSize="24" HorizontalOptions="Center" Margin="0,0,0,20" />
 
@@ -22,14 +23,10 @@
 
 
     <!-- Second Tab: Manage Games -->
-    <ContentPage Title="Manage Games">
+    <ContentPage Title="Manage Games" BackgroundImageSource="igre_poz.png">
     <StackLayout>
-        <Label Text="Content for Manage Games Tab" />
-
         <ScrollView VerticalOptions="FillAndExpand">
             <StackLayout>
-                <Label Text="Edit/Delete Games" />
-
                 <StackLayout Orientation="Vertical" Spacing="10" Padding="10" BindableLayout.ItemsSource="{Binding Games}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
