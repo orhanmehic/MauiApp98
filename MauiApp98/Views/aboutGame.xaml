@@ -23,6 +23,7 @@
             <!-- Game Description and Categories -->
             <StackLayout Padding="10" Spacing="10">
                 <Label Text="{Binding Description}" FontSize="16" />
+                <Label Text="{Binding Category}" FontSize="20"/>
                 <!-- Add more labels or controls as needed for additional details -->
             </StackLayout>
         </StackLayout>

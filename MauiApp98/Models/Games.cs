@@ -17,7 +17,8 @@ namespace MauiApp98.Models
         public double Price { get; set; }
         public string Description { get; set; }
         public string Logo {  get; set; }
-        public string Video { get; set; }
+
+        public string Category {  get; set; }
       
     }
 }

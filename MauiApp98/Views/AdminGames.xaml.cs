@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO; 
 using System.Linq;
 using System.Text;
@@ -16,6 +17,8 @@ namespace MauiApp98.Views
         private GameService gameService;
         public ObservableCollection<Games> Games { get; set; }
 
+        public List<string> Categories { get; set; }
+
         public AdminGames()
         {
             InitializeComponent();
@@ -23,9 +26,15 @@ namespace MauiApp98.Views
             SqliteData database = new SqliteData(dbPath);
             gameService = new GameService(database);
             Games = new ObservableCollection<Games>(gameService.getAllGames());
+            Categories = new List<string>()
+            {
+                "Action", "Adventure", "Sports", "Racing", "Horror","FPS", "RPG","Strategy", "Simulation" 
+            };
             BindingContext = this;
             this.CurrentPageChanged += HandleCurrentPageChanged;
         }
+
+        
 
         private void HandleCurrentPageChanged(object sender, EventArgs e)
         {
@@ -57,7 +66,8 @@ namespace MauiApp98.Views
             double price = double.Parse(PriceEntry.Text);
             string description = DescriptionEntry.Text;
             string logo = LogoEntry.Text;
-            string video = VideoEntry.Text;
+            string category = CategoriesPicker.SelectedItem.ToString();
+
 
             // Create a new Games object
             Games newGame = new Games
@@ -66,7 +76,7 @@ namespace MauiApp98.Views
                 Price = price,
                 Description = description,
                 Logo = logo,
-                Video = video
+                Category = category
             };
 
             // Call the method to add the game to the database
@@ -77,7 +87,6 @@ namespace MauiApp98.Views
             PriceEntry.Text = "";
             DescriptionEntry.Text = "";
             LogoEntry.Text = "";
-            VideoEntry.Text = "";
 
             // Display success message
             await DisplayAlert("Success", $"{name} has been successfully added.", "OK");
@@ -85,7 +94,6 @@ namespace MauiApp98.Views
             // Optionally, update the UI to reflect the changes
             Games.Add(newGame);
         }
-
         
         private async void DeleteButton_Clicked(object? sender, EventArgs e)
         {
@@ -123,7 +131,6 @@ namespace MauiApp98.Views
                 string newPriceString = await DisplayPromptAsync("Edit Price", "Enter new price:", initialValue: game.Price.ToString());
                 string newDescription = await DisplayPromptAsync("Edit Description", "Enter new description:", initialValue: game.Description);
                 string newLogo = await DisplayPromptAsync("Edit Logo", "Enter new logo:", initialValue: game.Logo);
-                string newVideo = await DisplayPromptAsync("Edit Video", "Enter new video:", initialValue: game.Video);
 
                 if (newName != null && double.TryParse(newPriceString, out double newPrice))
                 {
@@ -132,7 +139,6 @@ namespace MauiApp98.Views
                     game.Price = newPrice;
                     game.Description = newDescription;
                     game.Logo = newLogo;
-                    game.Video = newVideo;
 
                     // Call the method to update the game in the database
                     gameService.UpdateGame(game);

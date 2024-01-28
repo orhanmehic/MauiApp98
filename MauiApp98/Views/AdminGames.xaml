@@ -13,7 +13,7 @@
             <Entry Placeholder="Price" x:Name="PriceEntry" FontSize="18" Margin="0,0,0,10" Keyboard="Numeric" />
             <Entry Placeholder="Description" x:Name="DescriptionEntry" FontSize="18" Margin="0,0,0,10" />
             <Entry Placeholder="Logo URL" x:Name="LogoEntry" FontSize="18" Margin="0,0,0,10" />
-            <Entry Placeholder="Video URL" x:Name="VideoEntry" FontSize="18" Margin="0,0,0,10" />
+            <Picker x:Name="CategoriesPicker" ItemsSource="{Binding Categories}" />
 
             <Button Text="Add Game" Clicked="AddButton_Clicked" BackgroundColor="#4CAF50" TextColor="White" FontSize="18" CornerRadius="8" Margin="0,20,0,0" />
             <Button Text="Back" Clicked="BackButton_Clicked" BackgroundColor="#2196F3" TextColor="White" FontSize="18" CornerRadius="8" Margin="0,10,0,0" />
@@ -79,7 +79,7 @@
             </StackLayout>
         </ScrollView>
 
-        <Button Text="Back" Clicked="BackButton_Clicked" Margin="0,20,0,0"/>
+            <Button Text="Back" Clicked="BackButton_Clicked" Margin="0,20,0,0"/>
     </StackLayout>
 </ContentPage>
 

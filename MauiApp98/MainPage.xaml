@@ -26,7 +26,6 @@
             <Button x:Name="admin"  Clicked="adminPage" Text="admin"/>
             <Button x:Name="RegisterButton"  Clicked="Registration" Text="Register"/>
             <Button x:Name="LogoutButton" Clicked="Logout" Text="Logout"/>
-            <Button x:Name="RegisterButton" Clicked="Registration" Text="Regitser"/>
             <Button Clicked="ClickedLibrary" Text="Library"/>
         </StackLayout>
     </StackLayout>
