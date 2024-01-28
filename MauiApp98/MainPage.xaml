@@ -11,17 +11,21 @@
                             <StackLayout Orientation="Vertical" Spacing="10" Padding="10">
                                 <Label Text="{Binding Price}" FontSize="20" FontAttributes="Bold"/>
                                 <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold"/>
-                                <Button Text="Add to Cart" Clicked="AddToCartButton_Clicked" CommandParameter="{Binding .}"/>
+                                <!--<Button Text="Add to Cart" Clicked="AddToCartButton_Clicked" CommandParameter="{Binding .}"/>-->
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="GameTapped" CommandParameter="{Binding .}" />
+                                </StackLayout.GestureRecognizers>
                             </StackLayout>
                         </Frame>
                     </DataTemplate>
-
                 </BindableLayout.ItemTemplate>
             </StackLayout>
         </ScrollView>
         <StackLayout Orientation="Horizontal">
             <Button x:Name="LoginButton"  Clicked="Login" Text="Login"/>
             <Button x:Name="LogoutButton" Clicked="Logout" Text="Logout"/>
+            <Button x:Name="RegisterButton" Clicked="Registration" Text="Regitser"/>
+            <Button Clicked="ClickedLibrary" Text="Library"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>

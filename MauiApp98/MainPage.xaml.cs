@@ -1,11 +1,9 @@
-﻿using SQLite;
-using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
-using MauiApp98.Views;
-using MauiApp98.Data;
-using MauiApp98.Services;
+﻿using MauiApp98.Data;
 using MauiApp98.Models;
+using MauiApp98.Services;
+using MauiApp98.Views;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 
 namespace MauiApp98;
@@ -72,14 +70,19 @@ public partial class MainPage : ContentPage
         SecureStorage.Remove("username");
         Navigation.PopToRootAsync();
     }
-
-
-
-    private void AddToCartButton_Clicked(object sender, EventArgs e)
+    private async void GameTapped(object sender, EventArgs e)
     {
-        if (sender is Button addToCartButton && addToCartButton.CommandParameter is Games selectedGame)
+        if (sender is StackLayout stackLayout && stackLayout.BindingContext is Games game)
         {
-            Debug.WriteLine($"Selected Game: {selectedGame.Name}");
+            // Navigate to the GameAboutPage and pass the selected game as a parameter
+            await Navigation.PushAsync(new aboutGame(game, this));
+        }
+    }
+
+
+
+    public void AddToCart(Games game)
+    {
 
             if (!String.IsNullOrEmpty(SecureStorage.GetAsync("username").Result))
             {
@@ -101,7 +104,7 @@ public partial class MainPage : ContentPage
                     if (userId > 0)
                     {
                         // Add the selected game to the user's cart
-                        cartService.AddGameToCart(userId, selectedGame);
+                        cartService.AddGameToCart(userId, game);
                     }
                     else
                     {
@@ -117,7 +120,7 @@ public partial class MainPage : ContentPage
             {
                 // Handle the case where the user is not logged in
             }
-        }
+        
 
     }
 
